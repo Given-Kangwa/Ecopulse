@@ -10,6 +10,8 @@ from app.routes.collections import router as collection_router
 from app.routes.workers import router as worker_router
 from app.routes.routes import router as route_router
 from app.routes.assignments import router as assignment_router
+from app.routes.complaints import router as complaint_router
+from app.routes.incidents import router as incident_router
 
 
 app = FastAPI(
@@ -26,6 +28,8 @@ app.include_router(collection_router)
 app.include_router(worker_router)
 app.include_router(route_router)
 app.include_router(assignment_router)
+app.include_router(complaint_router)
+app.include_router(incident_router)
 
 @app.get("/")
 def root():

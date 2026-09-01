@@ -196,3 +196,82 @@ class PaymentAllocation(Base):
     )
 
     amount_allocated = Column(Numeric(10, 2))
+
+class Complaint(Base):
+    __tablename__ = "complaints"
+
+    complaint_id = Column(BigInteger, primary_key=True)
+
+    household_id = Column(
+        BigInteger,
+        ForeignKey("households.household_id"),
+        nullable=False
+    )
+
+    resident_id = Column(
+        BigInteger,
+        ForeignKey("residents.resident_id"),
+        nullable=False
+    )
+
+    category = Column(String(50), nullable=False)
+    description = Column(Text, nullable=False)
+    priority = Column(String(20), nullable=False)
+    status = Column(String(20), nullable=False)
+
+    assigned_worker_id = Column(
+        BigInteger,
+        ForeignKey("workers.worker_id"),
+        nullable=True
+    )
+
+    created_at = Column(DateTime(timezone=True))
+    resolved_at = Column(DateTime(timezone=True))
+    resolution_notes = Column(Text)
+
+class Incident(Base):
+    __tablename__ = "incidents"
+
+    incident_id = Column(BigInteger, primary_key=True)
+
+    route_id = Column(
+        BigInteger,
+        ForeignKey("routes.route_id")
+    )
+
+    incident_type = Column(String(50))
+    description = Column(Text)
+    status = Column(String(20))
+
+    created_at = Column(
+        DateTime(timezone=True)
+    )
+
+    resolved_at = Column(
+        DateTime(timezone=True)
+    )
+
+    confirmed_by = Column(
+        BigInteger,
+        ForeignKey("workers.worker_id")
+    )
+
+
+class IncidentComplaint(Base):
+    __tablename__ = "incident_complaints"
+
+    incident_id = Column(
+        BigInteger,
+        ForeignKey("incidents.incident_id"),
+        primary_key=True
+    )
+
+    complaint_id = Column(
+        BigInteger,
+        ForeignKey("complaints.complaint_id"),
+        primary_key=True
+    )
+
+    linked_at = Column(
+        DateTime(timezone=True)
+    )
