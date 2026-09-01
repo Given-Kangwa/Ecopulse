@@ -12,7 +12,7 @@ from app.routes.routes import router as route_router
 from app.routes.assignments import router as assignment_router
 from app.routes.complaints import router as complaint_router
 from app.routes.incidents import router as incident_router
-
+from app.routes.dashboard import router as dashboard_router
 
 app = FastAPI(
     title="EcoPulse API",
@@ -30,6 +30,8 @@ app.include_router(route_router)
 app.include_router(assignment_router)
 app.include_router(complaint_router)
 app.include_router(incident_router)
+app.include_router(dashboard_router)
+
 
 @app.get("/")
 def root():
