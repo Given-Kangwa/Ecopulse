@@ -4,7 +4,9 @@ from sqlalchemy.orm import Session
 
 from app.database.connection import SessionLocal
 from app.routes.households import router as household_router
-
+from app.routes.payment import router as payment_router
+from app.routes.billing import router as billing_router
+from app.routes.collections import router as collection_router
 
 app = FastAPI(
     title="EcoPulse API",
@@ -14,7 +16,9 @@ app = FastAPI(
 
 
 app.include_router(household_router)
-
+app.include_router(payment_router)
+app.include_router(billing_router)
+app.include_router(collection_router)
 
 @app.get("/")
 def root():
